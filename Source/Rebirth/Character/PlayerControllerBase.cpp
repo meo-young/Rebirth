@@ -1,5 +1,7 @@
 #include "Character/PlayerControllerBase.h"
 #include "EnhancedInputSubsystems.h"
+#include "Rebirth.h"
+#include "UI/GuideWidget.h"
 
 void APlayerControllerBase::SetupInputComponent()
 {
@@ -9,5 +11,23 @@ void APlayerControllerBase::SetupInputComponent()
 	if (UEnhancedInputLocalPlayerSubsystem* SubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		SubSystem->AddMappingContext(MappingContext, 0);
+	}
+}
+
+void APlayerControllerBase::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	if (IsValid(GuideWidgetClass))
+	{
+		GuideWidgetInstance = CreateWidget<UGuideWidget>(GetWorld(), GuideWidgetClass);
+		if (IsValid(GuideWidgetInstance))
+		{
+			if (!GuideWidgetInstance->IsInViewport())
+			{
+				LOG(TEXT("HorrorWidget 인스턴스 생성 성공"));
+				GuideWidgetInstance->AddToViewport();
+			}
+		}
 	}
 }
