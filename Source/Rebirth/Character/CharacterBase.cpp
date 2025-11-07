@@ -1,6 +1,7 @@
 #include "CharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
+#include "Lantern.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -22,6 +23,21 @@ ACharacterBase::ACharacterBase()
 	CameraComponent->SetupAttachment(SpringArmComponent);
 	CameraComponent->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 130.0f), FRotator(-10.0f, 0.0f, 0.0f));
 	CameraComponent->bUsePawnControlRotation = false;
+}
+
+void ACharacterBase::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	if (LanternClass)
+	{
+		Lantern = GetWorld()->SpawnActor<ALantern>(LanternClass, FTransform(GetActorLocation())); 
+
+		Lantern->LanternKnob->AttachToComponent(
+			GetMesh(),
+			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			FName("LeftHand_16"));
+	}
 }
 
 void ACharacterBase::Tick(float DeltaTime)

@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "CharacterBase.generated.h"
 
+class ALantern;
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
@@ -16,6 +17,7 @@ class REBIRTH_API ACharacterBase : public ACharacter
 
 public:
 	ACharacterBase();
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -34,5 +36,13 @@ protected:
 	/** 이동 입력 액션입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
 	TObjectPtr<UInputAction> MoveAction;
+
+	/** 랜턴 액터에 대한 클래스 참조입니다. */
+	UPROPERTY(EditDefaultsOnly, Category = "변수|랜턴")
+	TSubclassOf<ALantern> LanternClass;
+
+	/** 랜턴 액터에 대한 참조입니다. */
+	UPROPERTY(VisibleDefaultsOnly, Category = "변수|랜턴")
+	TObjectPtr<ALantern> Lantern;
 	
 };

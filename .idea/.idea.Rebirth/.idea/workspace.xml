@@ -12,18 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0414873-6b79-4247-9a9c-d1f0938b6df8" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_Player.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_Player.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Level/KDY/LV_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Level/KDY/LV_Test.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Idle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Idle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Sitting.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Sitting.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Walking.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Walking.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rebirth.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Rebirth.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Rebirth.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Rebirth.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Rebirth.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Rebirth.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Rebirth.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Rebirth.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +32,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Animation/AnimInstanceBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Animation/AnimInstanceBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/Lantern.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/Lantern.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Core/MainGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -157,7 +152,7 @@
       <option name="presentableId" value="Default" />
       <updated>1762491309511</updated>
       <workItem from="1762491311345" duration="1634000" />
-      <workItem from="1762493794728" duration="3631000" />
+      <workItem from="1762493794728" duration="9984000" />
     </task>
     <servers />
   </component>
