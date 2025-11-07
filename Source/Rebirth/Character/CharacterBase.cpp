@@ -120,5 +120,5 @@ void ACharacterBase::DoMove(const FInputActionValue& Value)
 void ACharacterBase::DoInteract(const FInputActionValue& Value)
 {
 	// 입력 값을 bool 값으로 변환합니다.
-	const bool bIsInteract = Value.Get<bool>();
+	InteractionComponent->StartInteraction();
 }
