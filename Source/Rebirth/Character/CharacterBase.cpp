@@ -29,7 +29,7 @@ void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (LanternClass)
+	/*if (LanternClass)
 	{
 		Lantern = GetWorld()->SpawnActor<ALantern>(LanternClass, FTransform(GetActorLocation())); 
 
@@ -37,7 +37,7 @@ void ACharacterBase::BeginPlay()
 			GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
 			FName("LeftHand_16"));
-	}
+	}*/
 }
 
 void ACharacterBase::Tick(float DeltaTime)
