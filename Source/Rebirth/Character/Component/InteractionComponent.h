@@ -36,6 +36,8 @@ public:
 	void StartInteraction();
 
 private:
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams;
 	IInteractable* InteractableObject = nullptr;
 	
 	
