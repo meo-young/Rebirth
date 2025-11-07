@@ -49,7 +49,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
 	TObjectPtr<UInputAction> InteractAction;
 	
-
 	/** 랜턴 손잡이에 대한 메시입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
 	TObjectPtr<USkeletalMeshComponent> LanternKnob;

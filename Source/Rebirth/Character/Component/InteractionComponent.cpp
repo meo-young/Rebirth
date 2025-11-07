@@ -1,7 +1,10 @@
 #include "Character/Component/InteractionComponent.h"
 #include "Rebirth.h"
+#include "Character/CharacterBase.h"
+#include "Character/PlayerControllerBase.h"
 #include "Define/Define.h"
 #include "Interface/Interactable.h"
+#include "UI/GuideWidget.h"
 
 UInteractionComponent::UInteractionComponent()
 {
@@ -22,7 +25,7 @@ void UInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
-	const AActor* Owner = GetOwner();
+	const ACharacterBase* Owner = Cast<ACharacterBase>(GetOwner());
 	if (!Owner) return;
 
 	const FVector CurrentLocation = Owner->GetActorLocation();
@@ -42,14 +45,25 @@ void UInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 	// 디버그용 구체 표시
 	DrawDebugSphere(GetWorld(), End, Radius, 16, bHit ? FColor::Green : FColor::Red, false, 0.1f);
-
+	
 	if (bHit && HitResult.GetActor())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitResult.GetActor()->GetName());
+		AActor* HitActor = HitResult.GetActor();
+
+		if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+		{
+			IInteractable::Execute_ShowInteractGuide(HitActor);
+		}
 	}
 	else
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("No Hit"));
+		if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(Owner->Controller))
+		{
+			if (UGuideWidget* GuideWidget = PlayerController->GuideWidgetInstance)
+			{
+				GuideWidget->HideGuide();
+			}
+		}
 	}
 }
 

@@ -17,5 +17,8 @@ class REBIRTH_API IInteractable
 public:
 	UFUNCTION(BlueprintNativeEvent)
 	void Interact();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void ShowInteractGuide();
 	
 };
