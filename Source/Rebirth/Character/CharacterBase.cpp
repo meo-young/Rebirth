@@ -1,9 +1,11 @@
 #include "CharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
-#include "Lantern.h"
 #include "Camera/CameraComponent.h"
+#include "Component/InteractionComponent.h"
+#include "Components/SpotLightComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "PhysicsEngine/PhysicsConstraintComponent.h"
 
 ACharacterBase::ACharacterBase()
 {
@@ -23,21 +25,47 @@ ACharacterBase::ACharacterBase()
 	CameraComponent->SetupAttachment(SpringArmComponent);
 	CameraComponent->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 130.0f), FRotator(-10.0f, 0.0f, 0.0f));
 	CameraComponent->bUsePawnControlRotation = false;
+
+	// Interaction Component를 초기화합니다.
+	InteractionComponent = CreateDefaultSubobject<UInteractionComponent>(TEXT("InteractionComponent"));
+
+	// 랜턴 손잡이를 생성합니다.
+	LanternKnob = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComponent"));
+	LanternKnob->SetupAttachment(GetMesh(), FName(TEXT("RightHand_end")));
+
+	// Physics Constraint의 Target이 되는 랜턴을 생성합니다.
+	TargetLantern = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TargetLantern"));
+	TargetLantern->SetupAttachment(LanternKnob, FName(TEXT("Head")));
+	TargetLantern->SetCollisionProfileName(FName("OverlapAll"));
+	TargetLantern->SetHiddenInGame(true);
+	TargetLantern->SetVisibility(false);
+
+	// Physics Constraint의 Root가 되는 랜턴을 생성합니다.
+	RootLantern = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RootLantern"));
+	RootLantern->SetupAttachment(LanternKnob, FName(TEXT("Head")));
+	RootLantern->SetSimulatePhysics(true);
+	
+	// Constraint 컴포넌트는 Knob 쪽(Head 소켓)에 달아둠
+	LanternJoint = CreateDefaultSubobject<UPhysicsConstraintComponent>(TEXT("LanternJoint"));
+	LanternJoint->SetupAttachment(RootLantern);
+
+	// 랜턴 라이트를 초기화합니다.
+	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight"));
+	SpotLight->SetupAttachment(RootLantern);
+	SpotLight->Intensity = 4000.f;
+	SpotLight->AttenuationRadius = 1000.f;
+	SpotLight->InnerConeAngle = 30.f;
+	SpotLight->OuterConeAngle = 40.f;
+	SpotLight->SetRelativeLocation(FVector(0.f, 0.f, -17.f));
+	SpotLight->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
+	SpotLight->CastShadows = true;
+	SpotLight->VolumetricScatteringIntensity = 30.0f;
+	
 }
 
 void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	/*if (LanternClass)
-	{
-		Lantern = GetWorld()->SpawnActor<ALantern>(LanternClass, FTransform(GetActorLocation())); 
-
-		Lantern->LanternKnob->AttachToComponent(
-			GetMesh(),
-			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			FName("LeftHand_16"));
-	}*/
 }
 
 void ACharacterBase::Tick(float DeltaTime)
@@ -54,6 +82,11 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 		if (MoveAction)
 		{
 			EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::DoMove);
+		}
+
+		if (InteractAction)
+		{
+			EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ThisClass::DoInteract);
 		}
 	}
 }
@@ -82,4 +115,10 @@ void ACharacterBase::DoMove(const FInputActionValue& Value)
 	{
 		AddMovementInput(Right, MoveVector.Y);
 	}
+}
+
+void ACharacterBase::DoInteract(const FInputActionValue& Value)
+{
+	// 입력 값을 bool 값으로 변환합니다.
+	const bool bIsInteract = Value.Get<bool>();
 }
