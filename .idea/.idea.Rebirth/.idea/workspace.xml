@@ -12,9 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0414873-6b79-4247-9a9c-d1f0938b6df8" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Level/KDY/LV_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Level/KDY/LV_Test.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +194,7 @@
       <workItem from="1762493794728" duration="14496000" />
       <workItem from="1762519680225" duration="13801000" />
       <workItem from="1762538186675" duration="2820000" />
-      <workItem from="1762541054897" duration="21656000" />
+      <workItem from="1762541054897" duration="21979000" />
     </task>
     <servers />
   </component>

@@ -83,11 +83,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="컴포넌트")
 	TObjectPtr<USpotLightComponent> SpotLight;
 
+	/** 회전 보간 속도입니다. */
+	UPROPERTY(EditDefaultsOnly, Category = "변수|스탯")
+	float RotationInterpSpeed = 8.0f;
+	
 private:
 	/** 히트결과를 다른 로직에서 쓰고 싶으면 멤버로 보관 */
 	FHitResult SpotTraceHit;
 
-	// 지난 프레임에 SpotLight에 포착됐던 AI들
+	/** 지난 프레임에 SpotLight에 포착됐던 AI들 */
 	UPROPERTY()
 	TSet<TWeakObjectPtr<AAICharacter>> PrevSpotlightHitSet;
 	

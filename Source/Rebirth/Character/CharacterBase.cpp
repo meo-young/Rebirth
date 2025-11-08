@@ -102,20 +102,30 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 void ACharacterBase::DoMove(const FInputActionValue& Value)
 {
-	// 입력 값을 2D 벡터로 변환합니다.
-	const FVector2D& MoveVector = Value.Get<FVector2D>();
+	const FVector2D MoveVector = Value.Get<FVector2D>();
 
-	// 캐릭터를 전방으로 이동시킵니다.
-	if (!FMath::IsNearlyZero(MoveVector.X))
-	{
-		AddMovementInput(FVector(1.0f, 0.0f, 0.0f), MoveVector.X);
-	}
+	if (MoveVector.IsNearlyZero())
+		return;
 
-	// 캐릭터를 측면으로 이동시킵니다.
-	if (!FMath::IsNearlyZero(MoveVector.Y))
-	{
-		AddMovementInput(FVector(0.0f, 1.0f, 0.0f), MoveVector.Y);
-	}
+	// 1입력 벡터를 그대로 방향으로 사용 (조합 입력 포함)
+	// W: X=1 → 전진, S: X=-1 → 후진
+	// D: Y=1 → 오른쪽, A: Y=-1 → 왼쪽
+	FVector DesiredDirection = FVector(MoveVector.X, MoveVector.Y, 0.0f); 
+	// XY 뒤바꿈 방지용으로 이 순서 맞게 조정
+	// (원하는 월드축 기준으로 바꿔도 됨)
+
+	// 정규화
+	DesiredDirection.Normalize();
+
+	// 회전 보간 (천천히 회전)
+	const FRotator CurrentRot = GetActorRotation();
+	const FRotator TargetRot = DesiredDirection.Rotation();
+	const float DeltaTime = GetWorld()->GetDeltaSeconds();
+	const FRotator NewRot = FMath::RInterpTo(CurrentRot, TargetRot, DeltaTime, RotationInterpSpeed);
+	SetActorRotation(NewRot);
+
+	// 항상 전방 벡터 방향으로 이동
+	AddMovementInput(GetActorForwardVector(), MoveVector.Size());
 }
 
 void ACharacterBase::DoInteract(const FInputActionValue& Value)
