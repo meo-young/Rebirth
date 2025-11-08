@@ -4,15 +4,19 @@
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
 #include "KismetTraceUtils.h"
+#include "PlayerControllerBase.h"
 #include "AI/AICharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Component/InteractionComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Define/Define.h"
 #include "Engine/OverlapResult.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
+#include "UI/FadeWidget.h"
 
 ACharacterBase::ACharacterBase()
 {
@@ -102,6 +106,38 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 			EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ThisClass::DoInteract);
 		}
 	}
+}
+
+void ACharacterBase::ApplyDeath()
+{
+	bIsCanMove = false;
+	bIsDead = true;
+	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(GetController()))
+	{
+		PlayerController->FadeWidgetInstance->FadeIn();
+	}
+
+	// 3) 2초 후에 Replay 호출
+	GetWorldTimerManager().ClearTimer(ReplayTimerHandle);
+	GetWorldTimerManager().SetTimer(
+		ReplayTimerHandle,
+		this,
+		&ACharacterBase::Replay,
+		2.0f,
+		false
+	);
+}
+
+void ACharacterBase::Replay()
+{
+	UWorld* World = GetWorld();
+	if (!World) return;
+
+	// 현재 레벨 이름 얻기 (PIE/에디터일 때 prefix 제거하려면 bRemovePrefix = true)
+	const FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(World, true);
+
+	// 현재 맵 다시 로드
+	UGameplayStatics::OpenLevel(World, FName(*CurrentLevelName));
 }
 
 void ACharacterBase::DoMove(const FInputActionValue& Value)

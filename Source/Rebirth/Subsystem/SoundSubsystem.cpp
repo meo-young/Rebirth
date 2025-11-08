@@ -121,8 +121,11 @@ void USoundSubsystem::PlaySFX2D(ESFX SFXType)
 
 void USoundSubsystem::PlayBGM(EBGM BGMType)
 {
+	LOG(TEXT("호출"));
 	// 유효한 BGMType인지 확인합니다.
-	if (!BGMAudioComponent || !BGMTableRows.IsValidIndex(static_cast<int32>(BGMType))) return;
+	if (!BGMAudioComponent) RegisterBGMComponent();
+
+		if (!BGMTableRows.IsValidIndex(static_cast<int32>(BGMType))) return;
 
 	// 기존 페이드 아웃 중이면 중단
 	if (UWorld* World = GetWorld())
@@ -148,6 +151,7 @@ void USoundSubsystem::PlayBGM(EBGM BGMType)
 				BGMAudioComponent->Stop();
 			}
 
+			LOG(TEXT("브금 재생"));
 			BGMAudioComponent->SetSound(LoadedSound);
 			BGMAudioComponent->Play();
 		}

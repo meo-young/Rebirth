@@ -2,6 +2,7 @@
 
 #include "LevelSequencePlayer.h"
 #include "MovieSceneSequencePlaybackSettings.h"
+#include "AI/AICharacter.h"
 #include "Character/CharacterBase.h"
 #include "Character/PlayerControllerBase.h"
 #include "Enum/ESFX.h"
@@ -22,8 +23,25 @@ void ASeedItem::Interact_Implementation()
 
 	if (bIsReal)
 	{
+		UWorld* World = GetWorld();
+		if (World)
+		{
+			TArray<AActor*> FoundActors;
+			UGameplayStatics::GetAllActorsOfClass(World, AAICharacter::StaticClass(), FoundActors);
+
+			for (AActor* Actor : FoundActors)
+			{
+				if (IsValid(Actor))
+				{
+					Actor->Destroy(); // 파괴
+				}
+			}
+		}
+
+		// 2️⃣ 1.5초 후 ShowDialogue 실행
 		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::ShowDialogue, 1.5f, false);
 	}
+
 	else
 	{
 		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::ShowFakeDialogue, 1.5f, false);

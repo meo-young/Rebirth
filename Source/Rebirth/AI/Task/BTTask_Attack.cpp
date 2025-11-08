@@ -2,6 +2,8 @@
 #include "Rebirth.h"
 #include "AI/AICharacter.h"
 #include "AI/AIControllerBase.h"
+#include "Character/CharacterBase.h"
+#include "Kismet/GameplayStatics.h"
 
 UBTTask_Attack::UBTTask_Attack()
 {
@@ -17,6 +19,8 @@ EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerCom
 	AAICharacter* AI = Cast<AAICharacter>(AIController->GetPawn());
 
 	AIController->StopMovement();
+
+	Cast<ACharacterBase>(UGameplayStatics::GetPlayerCharacter(AI->GetWorld(), 0))->ApplyDeath();
 
 	LOG(TEXT("Attack 상태"));
 	

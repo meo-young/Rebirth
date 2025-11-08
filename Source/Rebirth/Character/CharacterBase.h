@@ -31,6 +31,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	void ApplyDeath();
+
+	UFUNCTION(BlueprintCallable)
+	void Replay();
+
 private:
 	void DoMove(const FInputActionValue& Value);
 	void DoInteract(const FInputActionValue& Value);
@@ -47,6 +54,9 @@ public:
 	/** 캐릭터가 이동할 수 있는지에 대한 상태 변수입니다. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "변수|상태")
 	uint8 bIsCanMove : 1 = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "변수|상태")
+	uint8 bIsDead : 1 = false;
 
 	/** 줍기 애니메이션 몽타주입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|몽타주")
@@ -101,5 +111,8 @@ private:
 	/** 지난 프레임에 SpotLight에 포착됐던 AI들에 대한 참조입니다. */
 	UPROPERTY()
 	TSet<TWeakObjectPtr<AAICharacter>> PrevSpotlightHitSet;
+
+	FTimerHandle ReplayTimerHandle;
+
 	
 };

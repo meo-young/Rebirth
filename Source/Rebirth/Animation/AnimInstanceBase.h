@@ -16,6 +16,11 @@ public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
+public:
+	/** 이 애니메이션 인스턴스가 소유하고 있는 캐릭터입니다. */
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<ACharacterBase> Player = nullptr;
+	
 protected:
 	/** 캐릭터의 이동 속도에 대한 변수입니다. */
 	UPROPERTY(BlueprintReadOnly, Category = "변수")
@@ -26,10 +31,6 @@ protected:
 	uint8 bIsMoving : 1 = false;
 
 private:
-	/** 이 애니메이션 인스턴스가 소유하고 있는 캐릭터입니다. */
-	UPROPERTY()
-	TObjectPtr<ACharacterBase> Player = nullptr;
-
 	/** 캐릭터의 이동 컴포넌트입니다. */
 	UPROPERTY()
 	TObjectPtr<UCharacterMovementComponent> MovementComponent = nullptr;
