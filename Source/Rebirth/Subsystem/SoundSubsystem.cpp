@@ -123,13 +123,25 @@ void USoundSubsystem::PlayBGM(EBGM BGMType)
 {
 	// 유효한 BGMType인지 확인합니다.
 	if (!BGMAudioComponent || !BGMTableRows.IsValidIndex(static_cast<int32>(BGMType))) return;
-	
+
+	// 기존 페이드 아웃 중이면 중단
+	if (UWorld* World = GetWorld())
+	{
+		World->GetTimerManager().ClearTimer(BGMFadeTimerHandle);
+	}
+	bIsBGMFading = false;
+
+	// 볼륨 원복
+	BGMAudioComponent->SetVolumeMultiplier(1.0f);
+
 	// 비동기 로드를 사용하여 사운드를 로드하고 재생합니다.
 	FStreamableManager& Streamable = UAssetManager::GetStreamableManager();
-	Streamable.RequestAsyncLoad(BGMTableRows[static_cast<int32>(BGMType)]->Sound.ToSoftObjectPath(),
-	[this, BGMType]()
+	Streamable.RequestAsyncLoad(
+		BGMTableRows[static_cast<int32>(BGMType)]->Sound.ToSoftObjectPath(),
+		[this, BGMType]()
 		{
 			USoundCue* LoadedSound = BGMTableRows[static_cast<int32>(BGMType)]->Sound.Get();
+			if (!LoadedSound || !BGMAudioComponent) return;
 
 			if (BGMAudioComponent->IsPlaying())
 			{
@@ -138,14 +150,34 @@ void USoundSubsystem::PlayBGM(EBGM BGMType)
 
 			BGMAudioComponent->SetSound(LoadedSound);
 			BGMAudioComponent->Play();
-		});
+		}
+	);
 }
+
 
 void USoundSubsystem::StopBGM()
 {
-	if (BGMAudioComponent && BGMAudioComponent->IsPlaying())
+	if (!BGMAudioComponent) return;
+	if (!BGMAudioComponent->IsPlaying() && !bIsBGMFading) return;
+
+	if (UWorld* World = GetWorld())
 	{
-		BGMAudioComponent->Stop();
+		// 페이드 초기값 세팅
+		BGMStartVolume  = BGMAudioComponent->VolumeMultiplier;
+		BGMFadeElapsed  = 0.0f;
+		bIsBGMFading    = true;
+
+		// 이미 돌고 있던 페이드 타이머 있으면 초기화
+		World->GetTimerManager().ClearTimer(BGMFadeTimerHandle);
+
+		// 0.01 ~ 0.02 초 간격으로 업데이트 (대략 60fps)
+		World->GetTimerManager().SetTimer(
+			BGMFadeTimerHandle,
+			this,
+			&USoundSubsystem::UpdateBGMFadeOut,
+			0.016f,
+			true
+		);
 	}
 }
 
@@ -220,4 +252,45 @@ void USoundSubsystem::RegisterBGMComponent()
 	BGMAudioComponent = NewObject<UAudioComponent>(CachedWorld);
 	BGMAudioComponent->bAutoActivate = false;
 	BGMAudioComponent->RegisterComponentWithWorld(CachedWorld);
+}
+
+void USoundSubsystem::UpdateBGMFadeOut()
+{
+	if (!BGMAudioComponent)
+	{
+		if (UWorld* World = GetWorld())
+		{
+			World->GetTimerManager().ClearTimer(BGMFadeTimerHandle);
+		}
+		bIsBGMFading = false;
+		return;
+	}
+
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		bIsBGMFading = false;
+		return;
+	}
+
+	const float DeltaTime = World->GetDeltaSeconds();
+	BGMFadeElapsed += DeltaTime;
+
+	const float T = FMath::Clamp(BGMFadeElapsed / BGMFadeDuration, 0.0f, 1.0f);
+	const float NewVolume = FMath::Lerp(BGMStartVolume, 0.0f, T);
+
+	BGMAudioComponent->SetVolumeMultiplier(NewVolume);
+
+	// 페이드 완료 시
+	if (T >= 1.0f || NewVolume <= KINDA_SMALL_NUMBER)
+	{
+		BGMAudioComponent->SetVolumeMultiplier(0.0f);
+		if (BGMAudioComponent->IsPlaying())
+		{
+			BGMAudioComponent->Stop();
+		}
+
+		World->GetTimerManager().ClearTimer(BGMFadeTimerHandle);
+		bIsBGMFading = false;
+	}
 }

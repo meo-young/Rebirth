@@ -24,8 +24,18 @@ public:
 public:
 	void ApplyDamagedState();
 	void ExitDamagedState();
+	void PlayDamagedMontage();
 
 public:
+	UPROPERTY(EditDefaultsOnly, Category = "변수|몽타주")
+	TObjectPtr<UAnimMontage> DamagedMontage;
+
+	UPROPERTY(EditDefaultsOnly, Category = "변수|몽타주")
+	TObjectPtr<UAnimMontage> SubDamagedMontage1;
+
+	UPROPERTY(EditDefaultsOnly, Category = "변수|몽타주")
+	TObjectPtr<UAnimMontage> SubDamagedMontage2;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "변수|인자")
 	float KnockbackThreshold = 1.5f;
 

@@ -51,6 +51,10 @@ public:
 	/** 줍기 애니메이션 몽타주입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|몽타주")
 	TObjectPtr<UAnimMontage> PickUpMontage;
+
+	/** 조명(SpotLight) 컴포넌트입니다. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="컴포넌트")
+	TObjectPtr<USpotLightComponent> SpotLight;
 	
 protected:
 	/** 3인칭을 위한 카메라 컴포넌트입니다. */
@@ -88,10 +92,7 @@ protected:
 	/** 랜턴에 대한 물리엔진 컴포넌트입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
 	TObjectPtr<UPhysicsConstraintComponent> LanternJoint;
-	
-	/** 조명(SpotLight) 컴포넌트입니다. */
-	UPROPERTY(EditDefaultsOnly, Category="컴포넌트")
-	TObjectPtr<USpotLightComponent> SpotLight;
+
 
 private:
 	/** 히트결과를 다른 로직에서 쓰고 싶으면 멤버로 보관 */

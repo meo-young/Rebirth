@@ -17,7 +17,7 @@ public:
 public:
 	/** Dialogue를 Fade 연출로 활성화하는 함수입니다 */
 	UFUNCTION(BlueprintCallable)
-	void ShowDialogue(const FString& InText);
+	void ShowDialogue(const FString& InText, const FLinearColor& InColor = FLinearColor::Black);
 
 	/** Dialogue를 Fade 연출로 비활성화하는 함수입니다. */
 	UFUNCTION(BlueprintCallable)

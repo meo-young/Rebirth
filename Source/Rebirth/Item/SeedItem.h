@@ -1,20 +1,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Item/ItemBase.h"
-#include "Seed.generated.h"
+#include "ItemBase.h"
+#include "SeedItem.generated.h"
 
 class ALevelSequenceActor;
 class ULevelSequencePlayer;
 class ULevelSequence;
 
-UCLASS()
-class REBIRTH_API ASeed : public AItemBase
+UCLASS(Blueprintable)
+class REBIRTH_API ASeedItem : public AItemBase
 {
 	GENERATED_BODY()
 
 public:
-	ASeed();
+	ASeedItem();
 
 public:
 	/** Interactable 인터페이스의 Interact 함수 구현 */
@@ -23,11 +23,13 @@ public:
 
 private:
 	void ShowDialogue();
+	void ShowFakeDialogue();
+	void HideFakeDialogue();
 	void EndDialogue();
 	void PlayLevelSequence();
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "변수|대사")
+	UPROPERTY(EditAnywhere, Category = "변수|대사")
 	FString Dialogue;
 
 	/** 재생할 Level Sequence 에셋 */
@@ -41,6 +43,10 @@ protected:
 	/** 플레이어 생성 시 함께 만들어지는 LevelSequenceActor */
 	UPROPERTY()
 	ALevelSequenceActor* LevelSequenceActor = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "변수|상태")
+	uint8 bIsReal : 1 = false;
+	
 	
 private:
 	FTimerHandle FadeTimer;

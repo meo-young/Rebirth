@@ -76,5 +76,15 @@ private:
 
 	/** SFX 데이터테이블의 모든 행을 저장하는 배열입니다. */
 	TArray<FSFXTableRowBase*> SFXTableRows;
+
+private:
+	// BGM 페이드 아웃용
+	FTimerHandle BGMFadeTimerHandle;
+	float BGMFadeDuration = 2.0f;   // 2초 동안
+	float BGMFadeElapsed  = 0.0f;
+	float BGMStartVolume  = 1.0f;
+	bool  bIsBGMFading    = false;
+
+	void UpdateBGMFadeOut();
 	
 };

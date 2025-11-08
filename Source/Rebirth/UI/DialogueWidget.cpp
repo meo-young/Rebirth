@@ -14,14 +14,16 @@ void UDialogueWidget::NativeOnInitialized()
 	}
 }
 
-void UDialogueWidget::ShowDialogue(const FString& InText)
+void UDialogueWidget::ShowDialogue(const FString& InText, const FLinearColor& InColor)
 {
 	if (!Dialogue_Text) return;
 	
 	// 텍스트, 색상 갱신
 	Dialogue_Text->SetText(FText::FromString(InText));
-
+	Dialogue_Text->SetColorAndOpacity(InColor); // 여기서 색 변경
+	
 	const float Current = Dialogue_Text->GetRenderOpacity();
+	
 
 	// 이미 목표가 1.0이라면: 리셋 금지(그대로 진행/유지)
 	if (FMath::IsNearlyEqual(FadeTarget, 1.0f))

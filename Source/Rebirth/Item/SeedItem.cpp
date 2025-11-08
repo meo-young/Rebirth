@@ -1,4 +1,4 @@
-#include "Item/Seed.h"
+#include "Item/SeedItem.h"
 
 #include "LevelSequencePlayer.h"
 #include "MovieSceneSequencePlaybackSettings.h"
@@ -11,24 +11,31 @@
 #include "UI/FadeWidget.h"
 #include "UI/GuideWidget.h"
 
-ASeed::ASeed()
+ASeedItem::ASeedItem()
 {
 	GuideText = "씨앗을 수집할 수 있습니다.";
 }
 
-void ASeed::Interact_Implementation()
+void ASeedItem::Interact_Implementation()
 {
 	Super::Interact_Implementation();
 
-	GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::ShowDialogue, 2.5f, false);
+	if (bIsReal)
+	{
+		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::ShowDialogue, 1.5f, false);
+	}
+	else
+	{
+		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::ShowFakeDialogue, 1.5f, false);
+	}
 }
 
-void ASeed::ShowInteractGuide_Implementation()
+void ASeedItem::ShowInteractGuide_Implementation()
 {
 	Super::ShowInteractGuide_Implementation();
 }
 
-void ASeed::ShowDialogue()
+void ASeedItem::ShowDialogue()
 {
 	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
 	{
@@ -40,7 +47,29 @@ void ASeed::ShowDialogue()
 	}
 }
 
-void ASeed::EndDialogue()
+void ASeedItem::ShowFakeDialogue()
+{
+	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
+	{
+		USoundLibrary::PlaySFX2D(PlayerController, ESFX::Seed);
+		Cast<ACharacterBase>(PlayerController->GetPawn())->bIsCanMove = false;
+		PlayerController->DialogueWidgetInstance->ShowDialogue(Dialogue, FLinearColor::White);
+		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::HideFakeDialogue, 1.5f, false);
+	}
+}
+
+void ASeedItem::HideFakeDialogue()
+{
+	SeedMesh->SetVisibility(false);
+	
+	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
+	{
+		Cast<ACharacterBase>(PlayerController->GetPawn())->bIsCanMove = true;
+		PlayerController->DialogueWidgetInstance->HideDialogue ();
+	}
+}
+
+void ASeedItem::EndDialogue()
 {
 	SeedMesh->SetVisibility(false);
 	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
@@ -52,7 +81,7 @@ void ASeed::EndDialogue()
 	
 }
 
-void ASeed::PlayLevelSequence()
+void ASeedItem::PlayLevelSequence()
 {
 	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
 	{

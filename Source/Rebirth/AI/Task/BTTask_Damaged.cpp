@@ -56,6 +56,8 @@ void UBTTask_Damaged::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMem
 
 			UE_LOG(LogTemp, Log, TEXT("Damaged Task: Knockback applied away from Player."));
 
+			AI->PlayDamagedMontage();
+
 			
 			CameraManager->StopShaking();
 			CameraManager->ApplyShake(EShakeState::Monster_Damaged, AI->CameraShakeScale);
