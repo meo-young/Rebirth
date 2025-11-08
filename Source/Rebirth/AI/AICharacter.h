@@ -22,10 +22,18 @@ public:
 	AAICharacter();
 
 public:
-	EAIState CurrentState;
-	uint8 bIsDamaged : 1 = false;
 	void ApplyDamagedState();
 	void ExitDamagedState();
+
+public:
+	UPROPERTY(EditDefaultsOnly, Category = "변수|인자")
+	float KnockbackThreshold = 1.5f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "변수|인자")
+	float CameraShakeScale = 1.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "변수|인자")
+	float KnockbackScale = 2500.0f;
 
 protected:
 	/** Monster Mesh입니다. */
