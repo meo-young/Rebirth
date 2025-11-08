@@ -3,8 +3,10 @@
 UENUM()
 enum class EBGM : uint8
 {
-	MainMenu = 0,
-	Level1 = 1,
-	Level2 = 2,
-	BossBattle = 3,
+	Title = 0,
+	Stage1 = 1,
+	Stage2 = 2,
+	Stage3 = 3,
+	Stage4 = 4,
+	Stage5 = 5,
 };

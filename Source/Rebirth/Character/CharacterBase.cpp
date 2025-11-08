@@ -4,6 +4,7 @@
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
 #include "KismetTraceUtils.h"
+#include "Rebirth.h"
 #include "AI/AICharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Component/InteractionComponent.h"
@@ -97,6 +98,11 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 		{
 			EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ThisClass::DoInteract);
 		}
+		
+		if (JumpAction)
+		{
+			EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ThisClass::DoJump);
+		}
 	}
 }
 
@@ -132,6 +138,11 @@ void ACharacterBase::DoInteract(const FInputActionValue& Value)
 {
 	// 입력 값을 bool 값으로 변환합니다.
 	InteractionComponent->StartInteraction();
+}
+
+void ACharacterBase::DoJump(const FInputActionValue& Value)
+{
+	LOG(TEXT("점프"));
 }
 
 void ACharacterBase::SpotLightTracing()

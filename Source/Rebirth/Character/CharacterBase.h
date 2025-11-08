@@ -34,6 +34,7 @@ public:
 private:
 	void DoMove(const FInputActionValue& Value);
 	void DoInteract(const FInputActionValue& Value);
+	void DoJump(const FInputActionValue& Value);
 
 	/** Spot Light의 범위에 맞게 Cone Tracing을 실시합니다. */
 	void SpotLightTracing();
@@ -62,6 +63,10 @@ protected:
 	/** 상호작용 액션입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
 	TObjectPtr<UInputAction> InteractAction;
+
+	/** 점프 액션입니다. */
+	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
+	TObjectPtr<UInputAction> JumpAction;
 	
 	/** 랜턴 손잡이에 대한 메시입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
