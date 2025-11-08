@@ -44,6 +44,10 @@ private:
 	bool ConeTraceMulti(const UObject* WorldContextObject, const FVector Start, const FRotator Direction, float ConeHeight, float ConeHalfAngle, ETraceTypeQuery TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, EDrawDebugTrace::Type DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor = FLinearColor::Red, FLinearColor TraceHitColor = FLinearColor::Green, float DrawTime = 5.0f);
 
 protected:
+	/** 줍기 애니메이션 몽타주입니다. */
+	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
+	TObjectPtr<UAnimMontage> AcquireMontage;
+	
 	/** 3인칭을 위한 카메라 컴포넌트입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
 	TObjectPtr<UCameraComponent> CameraComponent;
@@ -93,6 +97,9 @@ protected:
 	float RotationInterpSpeed = 8.0f;
 	
 private:
+	/** 줍기 상태인지 나타내는 상태 변수입니다. */
+	uint8 bIsAcquire : 1 = false;
+	
 	/** 히트결과를 다른 로직에서 쓰고 싶으면 멤버로 보관 */
 	FHitResult SpotTraceHit;
 
