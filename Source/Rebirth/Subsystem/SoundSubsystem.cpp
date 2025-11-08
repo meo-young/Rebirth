@@ -9,6 +9,7 @@
 #include "TableRowBase/SFXTableRowBase.h"
 #include "Enum/EBGM.h"
 #include "Enum/ESFX.h"
+#include "Kismet/GameplayStatics.h"
 
 USoundSubsystem::USoundSubsystem()
 {
@@ -51,28 +52,71 @@ void USoundSubsystem::Deinitialize()
 
 void USoundSubsystem::PlaySFXInLocation(ESFX SFXType, const FVector& Location)
 {
-	// 유효한 SFXType인지 확인합니다.
-	if (!SFXTableRows.IsValidIndex(static_cast<int32>(SFXType))) return;
+    const int32 Index = static_cast<int32>(SFXType);
 
-	// 비동기 로드를 사용하여 사운드를 로드하고 재생합니다.
-	FStreamableManager& Streamable = UAssetManager::GetStreamableManager();
-	Streamable.RequestAsyncLoad(SFXTableRows[static_cast<int32>(SFXType)]->Sound.ToSoftObjectPath(),
-	[this, SFXType, Location]()
-		{
-			USoundCue* LoadedSound = SFXTableRows[static_cast<int32>(SFXType)]->Sound.Get();
-		
-			if (UAudioComponent* AC = GetPooledAudioComponent())
-			{
-				AC->SetSound(LoadedSound);
-				AC->SetWorldLocation(Location);
-				AC->Play();
-			}
-		});
+    // 유효한 SFXType인지 확인합니다.
+    if (!SFXTableRows.IsValidIndex(Index)) return;
+
+    // 나중에 DataTable이 바뀌어도 안전하도록 SoftPtr만 캐싱
+    const TSoftObjectPtr<USoundCue> SoundToLoad = SFXTableRows[Index]->Sound;
+    if (SoundToLoad.IsNull()) return;
+
+    // Subsystem이 사라졌을 때를 대비해서 Weak 포인터 사용
+    TWeakObjectPtr<USoundSubsystem> WeakThis(this);
+    const FVector TargetLocation = Location;
+
+    FStreamableManager& Streamable = UAssetManager::GetStreamableManager();
+    Streamable.RequestAsyncLoad(
+        SoundToLoad.ToSoftObjectPath(),
+        [WeakThis, SoundToLoad, TargetLocation]()
+        {
+            if (!WeakThis.IsValid()) return;
+
+            USoundSubsystem* StrongThis = WeakThis.Get();
+            if (!StrongThis) return;
+
+            USoundCue* LoadedSound = SoundToLoad.Get();
+            if (!LoadedSound) return;
+
+            if (UWorld* World = StrongThis->GetWorld())
+            {
+                // 3D 위치 기반 SFX 재생
+                UGameplayStatics::PlaySoundAtLocation(World, LoadedSound, TargetLocation);
+            }
+        }
+    );
 }
 
 void USoundSubsystem::PlaySFX2D(ESFX SFXType)
 {
-	PlaySFXInLocation(SFXType, FVector::ZeroVector);
+    const int32 Index = static_cast<int32>(SFXType);
+    if (!SFXTableRows.IsValidIndex(Index)) return;
+
+    const TSoftObjectPtr<USoundCue> SoundToLoad = SFXTableRows[Index]->Sound;
+    if (SoundToLoad.IsNull()) return;
+
+    TWeakObjectPtr<USoundSubsystem> WeakThis(this);
+
+    FStreamableManager& Streamable = UAssetManager::GetStreamableManager();
+    Streamable.RequestAsyncLoad(
+        SoundToLoad.ToSoftObjectPath(),
+        [WeakThis, SoundToLoad]()
+        {
+            if (!WeakThis.IsValid()) return;
+
+            USoundSubsystem* StrongThis = WeakThis.Get();
+            if (!StrongThis) return;
+
+            USoundCue* LoadedSound = SoundToLoad.Get();
+            if (!LoadedSound) return;
+
+            if (UWorld* World = StrongThis->GetWorld())
+            {
+                // 화면 전체에 들리는 2D 사운드 재생
+                UGameplayStatics::PlaySound2D(World, LoadedSound);
+            }
+        }
+    );
 }
 
 void USoundSubsystem::PlayBGM(EBGM BGMType)
