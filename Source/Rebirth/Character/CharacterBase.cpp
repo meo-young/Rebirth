@@ -79,6 +79,8 @@ void ACharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (!bIsCanMove) return;
+
 	SpotLightTracing();
 }
 
@@ -102,6 +104,8 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 void ACharacterBase::DoMove(const FInputActionValue& Value)
 {
+	if (!bIsCanMove) return;
+	
 	// 입력 값을 2D 벡터로 변환합니다.
 	const FVector2D& MoveVector = Value.Get<FVector2D>();
 
@@ -120,6 +124,8 @@ void ACharacterBase::DoMove(const FInputActionValue& Value)
 
 void ACharacterBase::DoInteract(const FInputActionValue& Value)
 {
+	if (!bIsCanMove) return;
+
 	// 입력 값을 bool 값으로 변환합니다.
 	InteractionComponent->StartInteraction();
 }

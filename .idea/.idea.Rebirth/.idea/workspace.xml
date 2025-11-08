@@ -14,18 +14,9 @@
     <list default="true" id="c0414873-6b79-4247-9a9c-d1f0938b6df8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Cinematics/WellChangeV2.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/LV_01.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LV_01.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/DataTable/DT_BGM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/DataTable/DT_BGM.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Sound/Footstep/Grass/SC_Grass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Sound/Footstep/Grass/SC_Grass.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Sound/Footstep/Ground/SC_Ground.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Sound/Footstep/Ground/SC_Ground.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/12/GV/0Z9K5JFPGDWZL52ZAE4AM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/AH/RA/5QNB0CJV1F70ZVU989P42.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/E7/9V/SFP1KL9YRQLYPSUUBNK54.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/F4/V6/81AM3JPYMS4K0ZSEZJPZ3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Enum/ESFX.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Enum/ESFX.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/UI/FadeWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/UI/FadeWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

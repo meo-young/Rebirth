@@ -42,6 +42,11 @@ private:
 	UFUNCTION(BlueprintCallable, Category = "Collision", Meta = (bIgnoreSelf = "true", WorldContext = "WorldContextObject", AutoCreateRefTerm = "ActorsToIgnore", DisplayName = "Multi Cone Trace By Channel", AdvancedDisplay = "TraceColor, TraceHitColor, DrawTime", Keywords = "sweep"))
 	bool ConeTraceMulti(const UObject* WorldContextObject, const FVector Start, const FRotator Direction, float ConeHeight, float ConeHalfAngle, ETraceTypeQuery TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, EDrawDebugTrace::Type DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor = FLinearColor::Red, FLinearColor TraceHitColor = FLinearColor::Green, float DrawTime = 5.0f);
 
+public:
+	/** 캐릭터가 이동할 수 있는지에 대한 상태 변수입니다. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "변수|상태")
+	uint8 bIsCanMove : 1 = true;
+	
 protected:
 	/** 3인칭을 위한 카메라 컴포넌트입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
@@ -87,7 +92,7 @@ private:
 	/** 히트결과를 다른 로직에서 쓰고 싶으면 멤버로 보관 */
 	FHitResult SpotTraceHit;
 
-	// 지난 프레임에 SpotLight에 포착됐던 AI들
+	/** 지난 프레임에 SpotLight에 포착됐던 AI들에 대한 참조입니다. */
 	UPROPERTY()
 	TSet<TWeakObjectPtr<AAICharacter>> PrevSpotlightHitSet;
 	
