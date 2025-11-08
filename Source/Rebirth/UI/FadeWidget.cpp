@@ -68,3 +68,19 @@ void UFadeWidget::UpdateFade()
 		GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
 	}
 }
+
+void UFadeWidget::SetInstantVisible()
+{
+	if (!FadeImage) return;
+	GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
+	CurrentAlpha = 1.f;
+	FadeImage->SetRenderOpacity(1.f);
+}
+
+void UFadeWidget::SetInstantInvisible()
+{
+	if (!FadeImage) return;
+	GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
+	CurrentAlpha = 0.f;
+	FadeImage->SetRenderOpacity(0.f);
+}

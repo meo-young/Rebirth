@@ -13,10 +13,20 @@ class REBIRTH_API UFadeWidget : public UUserWidget
 
 public:
 	/** Fade In 연출을 출력합니다. */
+	UFUNCTION(BlueprintCallable)
 	void FadeIn();
 
 	/** Fade Out 연출을 출력합니다. */
+	UFUNCTION(BlueprintCallable)
 	void FadeOut();
+	
+	/** 즉시 완전 불투명(1.0f)으로 변경 */
+	UFUNCTION(BlueprintCallable)
+	void SetInstantVisible();
+
+	/** 즉시 완전 투명(0.0f)으로 변경 */
+	UFUNCTION(BlueprintCallable)
+	void SetInstantInvisible();
 
 protected:
 	virtual void NativeConstruct() override;

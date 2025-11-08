@@ -18,10 +18,10 @@ public:
 	virtual void OnPossess(APawn* InPawn) override;
 
 public:
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 	TObjectPtr<UGuideWidget> GuideWidgetInstance;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 	TObjectPtr<UFadeWidget> FadeWidgetInstance;
 	
 protected:
