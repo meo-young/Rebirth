@@ -46,6 +46,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "변수|상태")
 	uint8 bIsReal : 1 = false;
+
+	UPROPERTY(EditAnywhere, Category = "변수|상태")
+	int32 SeedIndex = 0;
 	
 	
 private:

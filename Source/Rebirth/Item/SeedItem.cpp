@@ -41,7 +41,7 @@ void ASeedItem::ShowDialogue()
 	{
 		USoundLibrary::PlaySFX2D(PlayerController, ESFX::Seed);
 		Cast<ACharacterBase>(PlayerController->GetPawn())->bIsCanMove = false;
-		PlayerController->DialogueWidgetInstance->ShowDialogue(Dialogue);
+		PlayerController->DialogueWidgetInstance->ShowDialogue(Dialogue, FLinearColor::Black, SeedIndex);
 		PlayerController->FadeWidgetInstance->FadeIn(FLinearColor::White);
 		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::EndDialogue, 4.0f, false);
 	}

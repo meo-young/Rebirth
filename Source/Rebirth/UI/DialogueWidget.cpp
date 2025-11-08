@@ -1,5 +1,5 @@
 #include "UI/DialogueWidget.h"
-
+#include "Components/Image.h"
 #include "Rebirth.h"
 #include "Components/TextBlock.h"
 
@@ -12,23 +12,38 @@ void UDialogueWidget::NativeOnInitialized()
 		Dialogue_Text->SetText(FText::GetEmpty());
 		Dialogue_Text->SetRenderOpacity(0.0f);
 	}
+
+	
+	if (Dialogue_Image)
+	{
+		Dialogue_Image->SetRenderOpacity(0.0f);
+	}
 }
 
-void UDialogueWidget::ShowDialogue(const FString& InText, const FLinearColor& InColor)
+void UDialogueWidget::ShowDialogue(const FString& InText, const FLinearColor& InColor, int32 InImageType)
 {
 	if (!Dialogue_Text) return;
 	
 	// 텍스트, 색상 갱신
 	Dialogue_Text->SetText(FText::FromString(InText));
-	Dialogue_Text->SetColorAndOpacity(InColor); // 여기서 색 변경
-	
+	Dialogue_Text->SetColorAndOpacity(InColor);
+
+	// ⬇ 여기서 이미지도 Stage 타입에 맞게 변경
+	if (Dialogue_Image)
+	{
+		if (UTexture2D* const* FoundTex = StageImages.Find(InImageType))
+		{
+			Dialogue_Image->SetBrushFromTexture(*FoundTex);
+		}
+		// 텍스트와 함께 Fade 되도록, 시작 시 현재 opacity 가져오기만 하고
+		// UpdateFade에서 같이 조절
+	}
+
 	const float Current = Dialogue_Text->GetRenderOpacity();
-	
 
 	// 이미 목표가 1.0이라면: 리셋 금지(그대로 진행/유지)
 	if (FMath::IsNearlyEqual(FadeTarget, 1.0f))
 	{
-		// 타이머가 꺼져 있는 경우만 켠다(완료 상태일 수도 있으니)
 		EnsureFadeTimerRunning();
 		return;
 	}
@@ -41,6 +56,7 @@ void UDialogueWidget::ShowDialogue(const FString& InText, const FLinearColor& In
 
 	EnsureFadeTimerRunning();
 }
+
 
 void UDialogueWidget::HideDialogue()
 {
@@ -66,7 +82,7 @@ void UDialogueWidget::HideDialogue()
 
 void UDialogueWidget::UpdateFade()
 {
-	if (!Dialogue_Text)
+	if (!Dialogue_Text && !Dialogue_Image)
 	{
 		if (UWorld* World = GetWorld())
 		{
@@ -83,12 +99,28 @@ void UDialogueWidget::UpdateFade()
 
 	const float T = FMath::Clamp(FadeElapsed / FadeDuration, 0.0f, 1.0f);
 	const float NewOpacity = FMath::Lerp(FadeStart, FadeTarget, T);
-	Dialogue_Text->SetRenderOpacity(NewOpacity);
+
+	if (Dialogue_Text)
+	{
+		Dialogue_Text->SetRenderOpacity(NewOpacity);
+	}
+
+	if (Dialogue_Image)
+	{
+		Dialogue_Image->SetRenderOpacity(NewOpacity); // ⬅ 이미지도 같이 페이드
+	}
 
 	const bool bFinished = (T >= 1.0f) || FMath::IsNearlyEqual(NewOpacity, FadeTarget, 0.001f);
 	if (bFinished)
 	{
-		Dialogue_Text->SetRenderOpacity(FadeTarget);
+		if (Dialogue_Text)
+		{
+			Dialogue_Text->SetRenderOpacity(FadeTarget);
+		}
+		if (Dialogue_Image)
+		{
+			Dialogue_Image->SetRenderOpacity(FadeTarget); // ⬅ 최종값 고정
+		}
 
 		if (UWorld* World = GetWorld())
 		{
@@ -98,10 +130,19 @@ void UDialogueWidget::UpdateFade()
 
 		if (FMath::IsNearlyZero(FadeTarget))
 		{
-			Dialogue_Text->SetText(FText::GetEmpty());
+			if (Dialogue_Text)
+			{
+				Dialogue_Text->SetText(FText::GetEmpty());
+			}
+			// 필요하면 이미지도 비워주기
+			// if (Dialogue_Image)
+			// {
+			//     Dialogue_Image->SetBrushFromTexture(nullptr);
+			// }
 		}
 	}
 }
+
 
 void UDialogueWidget::EnsureFadeTimerRunning()
 {
