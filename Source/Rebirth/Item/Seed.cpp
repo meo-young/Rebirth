@@ -4,7 +4,9 @@
 #include "MovieSceneSequencePlaybackSettings.h"
 #include "Character/CharacterBase.h"
 #include "Character/PlayerControllerBase.h"
+#include "Enum/ESFX.h"
 #include "Kismet/GameplayStatics.h"
+#include "Library/SoundLibrary.h"
 #include "UI/DialogueWidget.h"
 #include "UI/FadeWidget.h"
 #include "UI/GuideWidget.h"
@@ -30,6 +32,7 @@ void ASeed::ShowDialogue()
 {
 	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
 	{
+		USoundLibrary::PlaySFX2D(PlayerController, ESFX::Seed);
 		Cast<ACharacterBase>(PlayerController->GetPawn())->bIsCanMove = false;
 		PlayerController->DialogueWidgetInstance->ShowDialogue(Dialogue);
 		PlayerController->FadeWidgetInstance->FadeIn(FLinearColor::White);
@@ -39,6 +42,7 @@ void ASeed::ShowDialogue()
 
 void ASeed::EndDialogue()
 {
+	SeedMesh->SetVisibility(false);
 	if (APlayerControllerBase* PlayerController = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0)))
 	{
 		PlayerController->DialogueWidgetInstance->HideDialogue ();

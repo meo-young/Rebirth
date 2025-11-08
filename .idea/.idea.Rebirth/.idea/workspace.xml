@@ -13,31 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c0414873-6b79-4247-9a9c-d1f0938b6df8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/LV_01.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LV_01.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/Animation/ABP_Player.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/Animation/ABP_Player.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_Player.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_Player.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_PlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_PlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Seed/BP_Seed.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Seed/BP_Seed.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/HUD/WBP_Fade.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/HUD/WBP_Fade.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/HUD/WBP_Guide.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/HUD/WBP_Guide.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Level/LV_1_Streaming.umap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/LevelSequence/LS_Stage1_Seed.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/LevelSequence/LS_Stage1_Seed.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/7J/Z4/XGN4L8QV5YZALZO75BJ0Z.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/7J/Z4/XGN4L8QV5YZALZO75BJ0Z.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/DataTable/DT_SFX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/DataTable/DT_SFX.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/HUD/WBP_Dialogue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/HUD/WBP_Dialogue.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/8H/ZO/CZ8WIF7YUDJG1M0EB2E9F.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/8H/ZO/CZ8WIF7YUDJG1M0EB2E9F.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/CM/I4/AEI5H1SJUUEOB30J4RKE3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/LV_01/CM/I4/AEI5H1SJUUEOB30J4RKE3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/Component/InteractionComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/Component/InteractionComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Item/ItemBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Item/ItemBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Item/ItemBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Item/ItemBase.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Rebirth/Item/Seed.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Item/Seed.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Item/Seed.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Item/Seed.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/UI/FadeWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/UI/FadeWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/UI/FadeWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/UI/FadeWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/UI/GuideWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/UI/GuideWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/UI/GuideWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/UI/GuideWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
