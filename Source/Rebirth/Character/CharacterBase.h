@@ -34,6 +34,7 @@ public:
 private:
 	void DoMove(const FInputActionValue& Value);
 	void DoInteract(const FInputActionValue& Value);
+	void OnInteractStarted();
 
 	/** Spot Light의 범위에 맞게 Cone Tracing을 실시합니다. */
 	void SpotLightTracing();
@@ -46,6 +47,10 @@ public:
 	/** 캐릭터가 이동할 수 있는지에 대한 상태 변수입니다. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "변수|상태")
 	uint8 bIsCanMove : 1 = true;
+
+	/** 줍기 애니메이션 몽타주입니다. */
+	UPROPERTY(EditDefaultsOnly, Category = "변수|몽타주")
+	TObjectPtr<UAnimMontage> PickUpMontage;
 	
 protected:
 	/** 3인칭을 위한 카메라 컴포넌트입니다. */

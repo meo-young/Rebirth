@@ -1,5 +1,7 @@
 #include "UI/FadeWidget.h"
 #include "Components/Image.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 void UFadeWidget::NativeConstruct()
 {
@@ -9,33 +11,42 @@ void UFadeWidget::NativeConstruct()
 	if (FadeImage)
 	{
 		FadeImage->SetRenderOpacity(0.f);
+		FadeImage->SetColorAndOpacity(FLinearColor::White);
 	}
 }
 
-void UFadeWidget::FadeIn()
+void UFadeWidget::FadeIn(const FLinearColor& InColor)
 {
 	if (!FadeImage) return;
 
 	GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
+
 	bIsFadingIn = true;
 	CurrentAlpha = 0.f;
+	TargetColor = InColor;
+
+	FadeImage->SetColorAndOpacity(TargetColor); // 색상 적용
 
 	GetWorld()->GetTimerManager().SetTimer(
 		FadeTimerHandle,
 		this,
 		&UFadeWidget::UpdateFade,
-		0.01f,     // 0.01초마다 업데이트 (부드럽게)
+		0.01f,
 		true
 	);
 }
 
-void UFadeWidget::FadeOut()
+void UFadeWidget::FadeOut(const FLinearColor& InColor)
 {
 	if (!FadeImage) return;
 
 	GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
+
 	bIsFadingIn = false;
 	CurrentAlpha = 1.f;
+	TargetColor = InColor;
+
+	FadeImage->SetColorAndOpacity(TargetColor); // 색상 적용
 
 	GetWorld()->GetTimerManager().SetTimer(
 		FadeTimerHandle,
@@ -69,17 +80,20 @@ void UFadeWidget::UpdateFade()
 	}
 }
 
-void UFadeWidget::SetInstantVisible()
+void UFadeWidget::SetInstantVisible(const FLinearColor& InColor)
 {
 	if (!FadeImage) return;
+
 	GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
 	CurrentAlpha = 1.f;
+	FadeImage->SetColorAndOpacity(InColor);
 	FadeImage->SetRenderOpacity(1.f);
 }
 
-void UFadeWidget::SetInstantInvisible()
+void UFadeWidget::SetInstantInvisible(const FLinearColor& InColor)
 {
 	if (!FadeImage) return;
+
 	GetWorld()->GetTimerManager().ClearTimer(FadeTimerHandle);
 	CurrentAlpha = 0.f;
 	FadeImage->SetRenderOpacity(0.f);

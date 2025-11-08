@@ -32,5 +32,4 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "변수|가이드")
 	FString GuideText;
 
-
 };

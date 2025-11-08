@@ -14,19 +14,19 @@ class REBIRTH_API UFadeWidget : public UUserWidget
 public:
 	/** Fade In 연출을 출력합니다. */
 	UFUNCTION(BlueprintCallable)
-	void FadeIn();
+	void FadeIn(const FLinearColor& InColor = FLinearColor::Black);
 
 	/** Fade Out 연출을 출력합니다. */
 	UFUNCTION(BlueprintCallable)
-	void FadeOut();
+	void FadeOut(const FLinearColor& InColor = FLinearColor::Black);
 	
 	/** 즉시 완전 불투명(1.0f)으로 변경 */
 	UFUNCTION(BlueprintCallable)
-	void SetInstantVisible();
+	void SetInstantVisible(const FLinearColor& InColor = FLinearColor::Black);
 
 	/** 즉시 완전 투명(0.0f)으로 변경 */
 	UFUNCTION(BlueprintCallable)
-	void SetInstantInvisible();
+	void SetInstantInvisible(const FLinearColor& InColor = FLinearColor::Black);
 
 protected:
 	virtual void NativeConstruct() override;
@@ -36,6 +36,7 @@ private:
 	TObjectPtr<UImage> FadeImage;
 
 	FTimerHandle FadeTimerHandle;
+	FLinearColor TargetColor = FLinearColor::Black;
 	float CurrentAlpha = 0.f;
 	float FadeDuration = 2.f; // 2초 동안
 	bool bIsFadingIn = false;

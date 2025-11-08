@@ -15,13 +15,15 @@ void UGuideWidget::NativeOnInitialized()
 	}
 }
 
-void UGuideWidget::ShowGuide(const FString& InText)
+void UGuideWidget::ShowGuide(const FString& InText, const FLinearColor& InColor)
 {
     if (!Guide_Text) return;
+    
+    LOG(TEXT("호출"));
 
-    // 텍스트는 매번 갱신(문구가 바뀔 수 있으므로)
-    const FString S = FString::Printf(TEXT("[F] 키를 누르면 %s"), *InText);
-    Guide_Text->SetText(FText::FromString(S));
+    // 텍스트, 색상 갱신
+    Guide_Text->SetText(FText::FromString(InText));
+    Guide_Text->SetColorAndOpacity(InColor); // 여기서 색 변경
 
     const float Current = Guide_Text->GetRenderOpacity();
 
@@ -34,8 +36,8 @@ void UGuideWidget::ShowGuide(const FString& InText)
     }
 
     // 방향 전환(0 -> 1)
-    FadeStart   = Current;        // 현재 지점에서
-    FadeTarget  = 1.0f;           // 목표는 1
+    FadeStart   = Current; // 현재 지점에서
+    FadeTarget  = 1.0f;    // 목표는 1
     FadeElapsed = 0.0f;
     bFading     = true;
 
@@ -45,7 +47,7 @@ void UGuideWidget::ShowGuide(const FString& InText)
 void UGuideWidget::HideGuide()
 {
     if (!Guide_Text) return;
-
+    
     const float Current = Guide_Text->GetRenderOpacity();
 
     // 이미 목표가 0.0이라면: 리셋 금지(그대로 진행/유지)

@@ -1,6 +1,7 @@
 #include "Character/PlayerControllerBase.h"
 #include "EnhancedInputSubsystems.h"
 #include "Rebirth.h"
+#include "UI/DialogueWidget.h"
 #include "UI/FadeWidget.h"
 #include "UI/GuideWidget.h"
 
@@ -19,6 +20,19 @@ void APlayerControllerBase::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
+	if (IsValid(FadeWidgetClass))
+	{
+		FadeWidgetInstance = CreateWidget<UFadeWidget>(GetWorld(), FadeWidgetClass);
+		if (IsValid(FadeWidgetInstance))
+		{
+			if (!FadeWidgetInstance->IsInViewport())
+			{
+				LOG(TEXT("FadeWidget 인스턴스 생성 성공"));
+				FadeWidgetInstance->AddToViewport(5);
+			}
+		}
+	}
+
 	if (IsValid(GuideWidgetClass))
 	{
 		GuideWidgetInstance = CreateWidget<UGuideWidget>(GetWorld(), GuideWidgetClass);
@@ -27,20 +41,20 @@ void APlayerControllerBase::OnPossess(APawn* InPawn)
 			if (!GuideWidgetInstance->IsInViewport())
 			{
 				LOG(TEXT("GuideWidget 인스턴스 생성 성공"));
-				GuideWidgetInstance->AddToViewport();
+				GuideWidgetInstance->AddToViewport(10);
 			}
 		}
 	}
 
-	if (IsValid(FadeWidgetClass))
+	if (IsValid(DialogueWidgetClass))
 	{
-		FadeWidgetInstance = CreateWidget<UFadeWidget>(GetWorld(), FadeWidgetClass);
-		if (IsValid(GuideWidgetInstance))
+		DialogueWidgetInstance = CreateWidget<UDialogueWidget>(GetWorld(), DialogueWidgetClass);
+		if (IsValid(DialogueWidgetInstance))
 		{
-			if (!FadeWidgetInstance->IsInViewport())
+			if (!DialogueWidgetInstance->IsInViewport())
 			{
-				LOG(TEXT("FadeWidget 인스턴스 생성 성공"));
-				FadeWidgetInstance->AddToViewport();
+				LOG(TEXT("DialogueWidgetInstance 인스턴스 생성 성공"));
+				DialogueWidgetInstance->AddToViewport(20);
 			}
 		}
 	}

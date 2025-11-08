@@ -73,6 +73,8 @@ ACharacterBase::ACharacterBase()
 void ACharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	InteractionComponent->OnInteractionStartedDelegate.AddUObject(this, &ThisClass::OnInteractStarted);
 }
 
 void ACharacterBase::Tick(float DeltaTime)
@@ -272,4 +274,13 @@ bool ACharacterBase::ConeTraceMulti(const UObject* WorldContextObject, const FVe
 	}
  
 	return (OutHits.Num() > 0);
+}
+
+void ACharacterBase::OnInteractStarted()
+{
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(PickUpMontage);
+		bIsCanMove = false;
+	}
 }

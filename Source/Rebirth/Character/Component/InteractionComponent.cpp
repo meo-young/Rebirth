@@ -27,9 +27,9 @@ void UInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 	
 	const ACharacterBase* Owner = Cast<ACharacterBase>(GetOwner());
 	if (!Owner) return;
-
+	
 	const FVector CurrentLocation = Owner->GetActorLocation();
-	const FVector Start = FVector(CurrentLocation.X, CurrentLocation.Y, 30.0f);
+	const FVector Start = FVector(CurrentLocation.X, CurrentLocation.Y, CurrentLocation.Z - 40.0f);
 	const FVector End = Start + Owner->GetActorForwardVector() * 80.f; 
 	constexpr float Radius = 50.f;
 	
@@ -42,6 +42,7 @@ void UInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 		FCollisionShape::MakeSphere(Radius),
 		QueryParams
 	);
+	
 
 	// 디버그용 구체 표시
 	DrawDebugSphere(GetWorld(), End, Radius, 16, bHit ? FColor::Green : FColor::Red, false, 0.1f);

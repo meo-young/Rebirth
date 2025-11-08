@@ -29,6 +29,8 @@ void AItemBase::Interact_Implementation()
 {
 	IInteractable::Interact_Implementation();
 
+	SetActorEnableCollision(false);
+
 	LOG(TEXT("호출"));
 }
 
