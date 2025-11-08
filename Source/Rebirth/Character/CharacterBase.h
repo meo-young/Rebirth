@@ -4,6 +4,13 @@
 #include "GameFramework/Character.h"
 #include "CharacterBase.generated.h"
 
+class AAICharacter;
+
+namespace EDrawDebugTrace
+{
+	enum Type : int;
+}
+
 class USpotLightComponent;
 class UPhysicsConstraintComponent;
 class UInteractionComponent;
@@ -27,6 +34,13 @@ public:
 private:
 	void DoMove(const FInputActionValue& Value);
 	void DoInteract(const FInputActionValue& Value);
+
+	/** Spot Light의 범위에 맞게 Cone Tracing을 실시합니다. */
+	void SpotLightTracing();
+
+	/** Cone Tracing을 실시하는 함수입니다. */
+	UFUNCTION(BlueprintCallable, Category = "Collision", Meta = (bIgnoreSelf = "true", WorldContext = "WorldContextObject", AutoCreateRefTerm = "ActorsToIgnore", DisplayName = "Multi Cone Trace By Channel", AdvancedDisplay = "TraceColor, TraceHitColor, DrawTime", Keywords = "sweep"))
+	bool ConeTraceMulti(const UObject* WorldContextObject, const FVector Start, const FRotator Direction, float ConeHeight, float ConeHalfAngle, ETraceTypeQuery TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, EDrawDebugTrace::Type DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor = FLinearColor::Red, FLinearColor TraceHitColor = FLinearColor::Green, float DrawTime = 5.0f);
 
 protected:
 	/** 3인칭을 위한 카메라 컴포넌트입니다. */
@@ -68,5 +82,13 @@ protected:
 	/** 조명(SpotLight) 컴포넌트입니다. */
 	UPROPERTY(EditDefaultsOnly, Category="컴포넌트")
 	TObjectPtr<USpotLightComponent> SpotLight;
+
+private:
+	/** 히트결과를 다른 로직에서 쓰고 싶으면 멤버로 보관 */
+	FHitResult SpotTraceHit;
+
+	// 지난 프레임에 SpotLight에 포착됐던 AI들
+	UPROPERTY()
+	TSet<TWeakObjectPtr<AAICharacter>> PrevSpotlightHitSet;
 	
 };

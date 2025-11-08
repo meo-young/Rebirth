@@ -11,7 +11,8 @@
 			"AdditionalDependencies": [
 				"Engine",
 				"LevelSequence",
-				"UMG"
+				"UMG",
+				"AIModule"
 			]
 		}
 	],
