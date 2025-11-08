@@ -13,7 +13,7 @@ void ACameraManager::ApplyShake(const EShakeState ShakeState, const float Scale)
 		break;
 	case EShakeState::Monster_Damaged:
 		StartCameraShake(MonsterDamagedShakeClass, Scale);
-		GetWorld()->GetTimerManager().SetTimer(ShakeTimer, this, &ThisClass::FinishShaking, 0.5f, false);
+		GetWorld()->GetTimerManager().SetTimer(ShakeTimer, this, &ThisClass::FinishShaking, 0.3f, false);
 		break;
 	}
 }
