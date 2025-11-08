@@ -3,6 +3,6 @@
 UENUM()
 enum class ESFX : uint8
 {
-	Test = 0,
-	Test2 = 1,
+	Footstep_Grass = 0,
+	Footstep_Ground = 1
 };

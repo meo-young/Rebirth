@@ -13,9 +13,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c0414873-6b79-4247-9a9c-d1f0938b6df8" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rebirth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_PlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Blueprint/Player/BP_PlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/AI/AICharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/AI/AICharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Rebirth/AI/Task/BTTask_Damaged.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/AI/Task/BTTask_Damaged.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/DataTable/DT_SFX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/DataTable/DT_SFX.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Level/KDY/LV_Test.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Level/KDY/LV_Test.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/Animation/Character_Ani_Walking_Anim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/Animation/Character_Ani_Walking_Anim.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Character_Ani_Walking_Anim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_Rebirth/Mesh/Player/urotsuki/SkeletalMeshes/Character_Ani_Walking_Anim.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/CameraManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/CameraManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Character/PlayerControllerBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Define/Define.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Define/Define.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Rebirth/Enum/ESFX.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Rebirth/Enum/ESFX.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +49,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/AI/Task/BTTask_Move.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Animation/AnimInstanceBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Animation/AnimInstanceBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Rebirth/Animation/Notify/AnimNotify_Footstep.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Rebirth/Animation/Notify/AnimNotify_Footstep.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/CameraManager.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/CameraManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Rebirth/Character/Component/InteractionComponent.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -193,7 +201,7 @@
       <workItem from="1762493794728" duration="14496000" />
       <workItem from="1762519680225" duration="13801000" />
       <workItem from="1762538186675" duration="2820000" />
-      <workItem from="1762541054897" duration="14029000" />
+      <workItem from="1762541054897" duration="18803000" />
     </task>
     <servers />
   </component>

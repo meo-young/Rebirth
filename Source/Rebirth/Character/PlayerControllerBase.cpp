@@ -25,7 +25,7 @@ void APlayerControllerBase::OnPossess(APawn* InPawn)
 		{
 			if (!GuideWidgetInstance->IsInViewport())
 			{
-				LOG(TEXT("HorrorWidget 인스턴스 생성 성공"));
+				LOG(TEXT("GuideWidget 인스턴스 생성 성공"));
 				GuideWidgetInstance->AddToViewport();
 			}
 		}
