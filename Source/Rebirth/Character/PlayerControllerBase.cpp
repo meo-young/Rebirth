@@ -1,6 +1,7 @@
 #include "Character/PlayerControllerBase.h"
 #include "EnhancedInputSubsystems.h"
 #include "Rebirth.h"
+#include "UI/FadeWidget.h"
 #include "UI/GuideWidget.h"
 
 void APlayerControllerBase::SetupInputComponent()
@@ -27,6 +28,19 @@ void APlayerControllerBase::OnPossess(APawn* InPawn)
 			{
 				LOG(TEXT("GuideWidget 인스턴스 생성 성공"));
 				GuideWidgetInstance->AddToViewport();
+			}
+		}
+	}
+
+	if (IsValid(FadeWidgetClass))
+	{
+		FadeWidgetInstance = CreateWidget<UFadeWidget>(GetWorld(), FadeWidgetClass);
+		if (IsValid(GuideWidgetInstance))
+		{
+			if (!FadeWidgetInstance->IsInViewport())
+			{
+				LOG(TEXT("FadeWidget 인스턴스 생성 성공"));
+				FadeWidgetInstance->AddToViewport();
 			}
 		}
 	}

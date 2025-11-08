@@ -261,7 +261,7 @@ bool ACharacterBase::ConeTraceMulti(const UObject* WorldContextObject, const FVe
 		// Successful hits.
 		for (const FHitResult& Hit : OutHits)
 		{
-			DrawDebugLineTraceSingle(World, Hit.TraceStart, Hit.ImpactPoint, DrawDebugType, true, Hit, TraceHitColor, TraceHitColor, DrawTime);
+			//DrawDebugLineTraceSingle(World, Hit.TraceStart, Hit.ImpactPoint, DrawDebugType, true, Hit, TraceHitColor, TraceHitColor, DrawTime);
 
 			if (AActor* Actor = Hit.GetActor())
 			{

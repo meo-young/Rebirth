@@ -4,6 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PlayerControllerBase.generated.h"
 
+class UFadeWidget;
 class UGuideWidget;
 class UInputMappingContext;
 
@@ -19,6 +20,9 @@ public:
 public:
 	UPROPERTY()
 	TObjectPtr<UGuideWidget> GuideWidgetInstance;
+
+	UPROPERTY()
+	TObjectPtr<UFadeWidget> FadeWidgetInstance;
 	
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
@@ -26,5 +30,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "변수|UI")
 	TSubclassOf<UGuideWidget> GuideWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "변수|UI")
+	TSubclassOf<UFadeWidget> FadeWidgetClass;
 	
 };
