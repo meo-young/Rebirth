@@ -2,6 +2,7 @@
 #include "Rebirth.h"
 #include "AI/AICharacter.h"
 #include "AI/AIControllerBase.h"
+#include "Character/CameraManager.h"
 #include "Kismet/GameplayStatics.h"
 
 UBTTask_Damaged::UBTTask_Damaged()
@@ -33,11 +34,12 @@ void UBTTask_Damaged::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMem
 
 	AAIControllerBase* AIController = Cast<AAIControllerBase>(OwnerComp.GetAIOwner());
 	AAICharacter* AI = Cast<AAICharacter>(AIController->GetPawn());
+	ACameraManager* CameraManager = Cast<ACameraManager>(UGameplayStatics::GetPlayerCameraManager(AI->GetWorld(), 0));
 
 	AccumulatedTime += DeltaSeconds;
 	
 	// 2초 경과 시 1회 넉백 적용
-	if (!bIsKnocked && AccumulatedTime >= 2.0f)
+	if (!bIsKnocked && AccumulatedTime >= AI->KnockbackThreshold)
 	{
 		ACharacter* Player = UGameplayStatics::GetPlayerCharacter(AI->GetWorld(), 0);
 		if (Player)
@@ -47,18 +49,24 @@ void UBTTask_Damaged::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMem
 			Dir.Z = 0.0f; // 수평 넉백
 			Dir = Dir.GetSafeNormal();
 
-			const FVector KnockbackVelocity = Dir * 2500.0f;
+			const FVector KnockbackVelocity = Dir * AI->KnockbackScale;
 
 			// LaunchCharacter로 즉시 속도 적용(수평/수직 모두 덮어쓰기)
 			AI->LaunchCharacter(KnockbackVelocity, /*bXYOverride*/true, /*bZOverride*/true);
 
 			UE_LOG(LogTemp, Log, TEXT("Damaged Task: Knockback applied away from Player."));
 
+			
+			CameraManager->StopShaking();
+			CameraManager->ApplyShake(EShakeState::Monster_Damaged, AI->CameraShakeScale);
+
 			bIsKnocked = true;
 		}
-
-		// 상태 전환 및 태스크 종료
-		AI->CurrentState = EAIState::Idle;
+		
 		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+	}
+	else
+	{
+		CameraManager->ApplyShake(EShakeState::Monster_Loop, AI->CameraShakeScale);
 	}
 }
