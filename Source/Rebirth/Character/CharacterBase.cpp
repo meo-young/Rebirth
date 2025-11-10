@@ -12,6 +12,7 @@
 #include "Components/SpotLightComponent.h"
 #include "Define/Define.h"
 #include "Engine/OverlapResult.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -105,8 +106,38 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 		{
 			EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &ThisClass::DoInteract);
 		}
+
+		if (JumpAction)
+		{
+			EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ThisClass::DoJump);
+		}
 	}
 }
+
+void ACharacterBase::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+
+	// 땅에 착지했으므로 다시 점프 가능
+	bIsJumping = false;
+}
+
+void ACharacterBase::DoJump(const FInputActionValue& Value)
+{
+	// 이미 점프 중이면 무시
+	if (bIsJumping)
+	{
+		return;
+	}
+
+	// 캐릭터가 땅 위에 있을 때만 점프 가능
+	if (GetCharacterMovement() && GetCharacterMovement()->IsMovingOnGround())
+	{
+		Jump();          // ACharacter 의 점프 함수
+		bIsJumping = true;
+	}
+}
+
 
 void ACharacterBase::ApplyDeath()
 {

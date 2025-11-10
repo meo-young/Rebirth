@@ -55,6 +55,10 @@
 		{
 			"Name": "MetaHumanLiveLink",
 			"Enabled": true
+		},
+		{
+			"Name": "Water",
+			"Enabled": true
 		}
 	]
 }

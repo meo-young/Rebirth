@@ -22,6 +22,12 @@ public:
 	TObjectPtr<ACharacterBase> Player = nullptr;
 	
 protected:
+	UPROPERTY(BlueprintReadOnly, Category = "변수")
+	uint8 bIsInAir : 1 = false;
+
+	UPROPERTY(BlueprintReadOnly, Category = "변수")
+	uint8 bIsJumping : 1 = false;
+	
 	/** 캐릭터의 이동 속도에 대한 변수입니다. */
 	UPROPERTY(BlueprintReadOnly, Category = "변수")
 	float MoveSpeed;

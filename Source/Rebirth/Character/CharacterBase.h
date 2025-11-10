@@ -30,7 +30,7 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	virtual void Landed(const FHitResult& Hit) override; // 착지 이벤트 오버라이드
 public:
 	UFUNCTION(BlueprintCallable)
 	void ApplyDeath();
@@ -38,9 +38,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Replay();
 
+	
+
 private:
 	void DoMove(const FInputActionValue& Value);
 	void DoInteract(const FInputActionValue& Value);
+	void DoJump(const FInputActionValue& Value);
 	void OnInteractStarted();
 
 	/** Spot Light의 범위에 맞게 Cone Tracing을 실시합니다. */
@@ -51,6 +54,8 @@ private:
 	bool ConeTraceMulti(const UObject* WorldContextObject, const FVector Start, const FRotator Direction, float ConeHeight, float ConeHalfAngle, ETraceTypeQuery TraceChannel, bool bTraceComplex, const TArray<AActor*>& ActorsToIgnore, EDrawDebugTrace::Type DrawDebugType, TArray<FHitResult>& OutHits, bool bIgnoreSelf, FLinearColor TraceColor = FLinearColor::Red, FLinearColor TraceHitColor = FLinearColor::Green, float DrawTime = 5.0f);
 
 public:
+	bool bIsJumping = false; // 점프 중 여부
+	
 	/** 캐릭터가 이동할 수 있는지에 대한 상태 변수입니다. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "변수|상태")
 	uint8 bIsCanMove : 1 = true;
@@ -68,11 +73,11 @@ public:
 	
 protected:
 	/** 3인칭을 위한 카메라 컴포넌트입니다. */
-	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "변수|컴포넌트")
 	TObjectPtr<UCameraComponent> CameraComponent;
 
 	/** 3인칭 카메라를 캐릭터 뒤에 위치시키기 위한 스프링암 컴포넌트입니다. */
-	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "변수|컴포넌트")
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
 
 	/** 상호작용 액터 컴포넌트입니다. */
@@ -86,6 +91,10 @@ protected:
 	/** 상호작용 액션입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
 	TObjectPtr<UInputAction> InteractAction;
+
+	/** 점프 액션입니다. */
+	UPROPERTY(EditDefaultsOnly, Category = "변수|입력")
+	TObjectPtr<UInputAction> JumpAction;
 	
 	/** 랜턴 손잡이에 대한 메시입니다. */
 	UPROPERTY(EditDefaultsOnly, Category = "변수|컴포넌트")
@@ -114,5 +123,4 @@ private:
 
 	FTimerHandle ReplayTimerHandle;
 
-	
 };

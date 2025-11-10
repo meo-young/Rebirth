@@ -41,4 +41,12 @@ void UAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 	{
 		bIsMoving = true;
 	}
+	
+	if (MovementComponent)
+	{
+		bIsInAir = MovementComponent->IsFalling();
+	}
+
+	// 점프 플래그 (C++에서 관리)
+	bIsJumping = Player->bIsJumping;
 }

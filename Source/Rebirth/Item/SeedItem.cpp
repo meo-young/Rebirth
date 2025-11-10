@@ -21,6 +21,8 @@ void ASeedItem::Interact_Implementation()
 {
 	Super::Interact_Implementation();
 
+	SetActorEnableCollision(false);
+
 	if (bIsReal)
 	{
 		UWorld* World = GetWorld();
@@ -71,7 +73,7 @@ void ASeedItem::ShowFakeDialogue()
 	{
 		USoundLibrary::PlaySFX2D(PlayerController, ESFX::Seed);
 		Cast<ACharacterBase>(PlayerController->GetPawn())->bIsCanMove = false;
-		PlayerController->DialogueWidgetInstance->ShowDialogue(Dialogue, FLinearColor::White);
+		PlayerController->DialogueWidgetInstance->ShowDialogue(Dialogue, FLinearColor::White, SeedIndex);
 		GetWorldTimerManager().SetTimer(FadeTimer, this, &ThisClass::HideFakeDialogue, 1.5f, false);
 	}
 }

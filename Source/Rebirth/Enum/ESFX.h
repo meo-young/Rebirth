@@ -7,5 +7,6 @@ enum class ESFX : uint8
 	Footstep_Ground = 1,
 	Monster_Fade = 2,
 	Monster_Damaged = 3,
-	Seed = 4
+	Seed = 4,
+	Lamp = 5
 };

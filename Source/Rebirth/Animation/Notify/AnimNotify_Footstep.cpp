@@ -33,7 +33,7 @@ void UAnimNotify_Footstep::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenc
 		QueryParams
 		);
 
-#if WITH_EDITOR
+/*#if WITH_EDITOR
 	// 라인트레이스 시각화
 	const FColor LineColor = bHit ? FColor::Green : FColor::Red;
 	DrawDebugLine(
@@ -46,7 +46,7 @@ void UAnimNotify_Footstep::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenc
 		0,
 		2.0f        // 두께
 	);
-#endif
+#endif*/
 	
 	// Surface Type에 따른 발걸음 소리를 재생한다.
 	if (bHit)

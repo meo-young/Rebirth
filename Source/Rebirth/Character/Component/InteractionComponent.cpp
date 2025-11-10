@@ -45,7 +45,7 @@ void UInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 	
 
 	// 디버그용 구체 표시
-	DrawDebugSphere(GetWorld(), End, Radius, 16, bHit ? FColor::Green : FColor::Red, false, 0.1f);
+	//DrawDebugSphere(GetWorld(), End, Radius, 16, bHit ? FColor::Green : FColor::Red, false, 0.1f);
 	
 	if (bHit && HitResult.GetActor())
 	{
