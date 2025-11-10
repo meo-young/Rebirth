@@ -29,7 +29,19 @@ void ALevelSequenceActorBase::BeginPlay()
 	if (IsValid(LevelSequencePlayer))
 	{
 		// 종료 델리게이트에 함수를 바인딩한다.
-		LevelSequencePlayer->OnFinished.AddDynamic(this, &ThisClass::OnSequenceEnded);	
+		LevelSequencePlayer->OnFinished.AddDynamic(this, &ThisClass::OnSequenceEnded);
+
+		/*// ① 시퀀스 워밍업
+		constexpr float WarmupTime = 0.01f; // 0.01초 정도 앞으로 보냄
+		LevelSequencePlayer->SetPlayRate(0.f);        // 정지된 상태로
+		LevelSequencePlayer->Play();                  // Evaluate를 강제로 한 번 돌리고
+		LevelSequencePlayer->SetPlaybackPosition(FMovieSceneSequencePlaybackParams(
+			WarmupTime, EUpdatePositionMethod::Play
+		));
+		LevelSequencePlayer->Stop();                  // 다시 멈추고
+		LevelSequencePlayer->SetPlaybackPosition(FMovieSceneSequencePlaybackParams(
+			0.f, EUpdatePositionMethod::Jump
+		)); */
 	}
 }
 
